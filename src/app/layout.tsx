@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { workSans } from "./ui/fonts";
 import "./globals.css";
+import { ThemeProvider } from "./contexts/ThemeContext";
+import Navbar from "./components/Navbar";
 
 export const metadata: Metadata = {
   title: "BatuBlog",
@@ -14,10 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${workSans.className} antialiased`}
-      >
-        {children}
+      <body className={`${workSans.className} antialiased`}>
+        <ThemeProvider>
+          <Navbar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
