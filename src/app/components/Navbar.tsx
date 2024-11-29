@@ -8,10 +8,11 @@ import Link from "next/link";
 import DarkModeToggle from "./DarkModeToggle";
 import SearchBar from "./SearchBar";
 import { RxHamburgerMenu, RxCross1 } from "react-icons/rx";
+import NavButtons from "./NavButtons";
+
 
 function Navbar() {
   const { isDarkMode } = useTheme();
-  const navButtons = ["Science", "Technology", "Sports", "Others"];
   const [sidebar, setSidebar] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -63,22 +64,10 @@ function Navbar() {
 
       {/* Desktop Navigation */}
       <nav className="hidden lg:flex items-center">
-        <ul className="flex flex-row items-center text-black dark:text-white gap-12">
-          <li
-            className="w-20 flex flex-row items-center justify-center text-secondary-600 dark:text-white hover:font-semibold"
-            key="home"
-          >
-            <Link href="/">Home</Link>
-          </li>
-          {navButtons.map((button) => (
-            <li
-              className="w-20 flex flex-row items-center justify-center text-secondary-600 dark:text-white hover:font-semibold"
-              key={button}
-            >
-              <Link href={`/${button.toLowerCase()}`}>{button}</Link>
-            </li>
-          ))}
-        </ul>
+        <NavButtons
+          buttonsStyle="flex flex-row items-center text-black dark:text-white gap-12"
+          buttonStyle="w-20 flex flex-row items-center justify-center text-secondary-600 dark:text-white hover:font-semibold"
+        />
       </nav>
 
       {/* Hamburger Menu */}
@@ -105,33 +94,21 @@ function Navbar() {
       )}
 
       {/* Sidebar */}
-      <div
+      <nav
         className={`fixed bg-[#e7e5e5] shadow-xl dark:bg-slate-800 h-full w-1/2 lg:w-2/5 top-0 left-0 z-10 transform transition-transform duration-300 ease-in-out ${
           sidebar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <ul className="flex flex-col justify-start items-start pl-4 text-lg text-black dark:text-white gap-12 pt-12">
-          <li
-            className="w-20 flex flex-row items-center justify-start text-black dark:text-white hover:font-semibold"
-            key="home"
-          >
-            <Link href="/" onClick={() => setSidebar(false)}>
-              Home
-            </Link>
-          </li>
-          {navButtons.map((button) => (
-            <li
-              className="w-20 flex flex-row items-center justify-start text-black dark:text-white hover:font-semibold"
-              key={button}
-            >
-              <Link href={`/${button.toLowerCase()}`} onClick={() => setSidebar(false)}>
-                {button}
-              </Link>
-            </li>
-          ))}
-          <DarkModeToggle />
-        </ul>
-      </div>
+        <NavButtons 
+          buttonsStyle="flex flex-col items-start pl-4 text-lg text-black dark:text-white gap-12 pt-12"
+          buttonStyle="w-20 flex flex-row items-center justify-start text-secondary-600 dark:text-white hover:font-semibold"
+        
+        />
+        <div className="mt-12 ml-3">
+           <DarkModeToggle />
+        </div>
+       
+      </nav>
 
       {/* Desktop Search and Dark Mode */}
       <div className="hidden lg:flex flex-row justify-around items-center gap-3">
